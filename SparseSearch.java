@@ -5,6 +5,10 @@
 
 //Your code here along with comments explaining your approach
 
+/*
+
+If there were no empty strings then we could’ve simply performed binary search. We can still use Binary Search with a little modification. If our mid is empty we just have to move mid to closest Non-Empty string.
+*/
 public class SparseSearch {
     static int binarySearch(String arr[], int low, int high, String x) { 
         if (low > high) 
