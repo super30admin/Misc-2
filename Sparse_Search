@@ -1,0 +1,46 @@
+//TimeComplexity.   O(nk)
+//SpaceComplexity. O(1)
+
+
+public static class Solution{
+        public static int sparseSearch(String[] arr, String target){
+            
+            int n = arr.length;
+            int low = 0;
+            int high = n-1;
+            while(low <= high){
+               int mid = (low + high)/2;
+            
+            if(arr[mid] == ""){
+                int left = mid-1;
+                int right = mid+1;
+                
+                while(left >= 0 && right <= n-1){
+                    if(arr[right] != ""){
+                        mid = right;
+                        break;
+                    }else if(arr[left] != ""){
+                        mid = left;
+                        break;
+                    }else{
+                        left--;
+                        right++;
+                    }
+                }
+              
+               
+            }
+            
+            if(arr[mid] == target){
+                return mid;
+            }else if(arr[mid].compareTo(target) < 0){
+                low = mid+1;
+            }else{
+                high = mid - 1;
+                
+            } 
+            }
+            return -1;
+            
+        }
+    }
