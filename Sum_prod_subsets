@@ -1,0 +1,18 @@
+//TimeComplexity.   O(n)
+//SpaceComplexity.  O(1)
+
+    public static class Solution{
+        public static int subsetSum(int[] arr){
+            
+            if(arr.length == 0)return 0;
+            int result = arr[0];
+            
+            for(int i = 1; i < arr.length; i++){
+                result += (arr[i] * (result+1));
+            }
+            return result;
+        }
+    }
+    
+    //https://www.youtube.com/watch?v=6A76FT0axl0&ab_channel=ProgrammingPathshala    
+

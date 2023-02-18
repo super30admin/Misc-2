@@ -1,0 +1,68 @@
+//TimeComplexity.  O(max)
+//Spacecomplexity. O(max)
+
+
+class StreamChecker {
+    
+   class TrieNode {
+       
+       boolean isEnd;
+       TrieNode[] children;
+       public TrieNode(){
+           this.children = new TrieNode[26];
+       }     
+   }
+    
+    
+    public void insert(String word){
+        
+        TrieNode curr = root;
+        for(int i = word.length()-1; i >=0; i--){
+            char c = word.charAt(i);
+            if(curr.children[c-'a'] == null){
+                curr.children[c-'a'] = new TrieNode();
+            }
+            curr = curr.children[c-'a'];
+        }
+        curr.isEnd = true;
+    }
+    
+    TrieNode root;
+    StringBuilder sb;
+    int max;
+    
+    public StreamChecker(String[] words) 
+    {
+       
+        this.root = new TrieNode();
+        this.sb = new StringBuilder();
+        for(String word : words){
+            insert(word);
+            max = Math.max(max,word.length());
+        }
+        }
+    
+    
+    public boolean query(char letter) {
+       
+        sb.append(letter);
+        
+        if(sb.length()>max){  sb.deleteCharAt(0);
+        }
+        TrieNode curr = root;
+        for(int i = sb.length()-1; i>= 0; i--){
+            char c = sb.charAt(i);
+           if(curr.children[c-'a'] == null)return false;
+            curr = curr.children[c - 'a'];
+            if(curr.isEnd)return true;
+        }
+        
+       return false; 
+    }
+}
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker obj = new StreamChecker(words);
+ * boolean param_1 = obj.query(letter);
+ */
