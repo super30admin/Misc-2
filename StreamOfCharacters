@@ -1,0 +1,60 @@
+S.c --> O(nk)
+T.c --> O(k)+O(nk)
+class StreamChecker {
+    public class TrieNode{
+        TrieNode[] children;
+        boolean isEnd;
+        public TrieNode(){
+            children = new TrieNode[26];
+            isEnd = false;
+        }
+    }
+    TrieNode root;
+    StringBuilder sb;
+
+    private void insert(String word){
+        TrieNode curr = root;
+        for(int i = word.length()-1; i>=0 ; i--){
+           char c = word.charAt(i);
+           if(curr.children[c-'a'] == null){
+             curr.children[c-'a'] = new TrieNode();
+           }
+           curr = curr.children[c-'a'];
+        }  
+        curr.isEnd = true; 
+    }
+
+    private boolean find(String letter){
+        TrieNode curr = root;
+        for(int i = letter.length()-1; i>=0; i--){
+            char c = letter.charAt(i);
+            if(curr.children[c-'a'] == null){
+                return false;
+            }
+            curr = curr.children[c-'a'];
+            if(curr.isEnd){
+                return true;
+            }
+        }     
+        return false;   
+    }
+
+    public StreamChecker(String[] words) {
+        root = new TrieNode();
+        sb = new StringBuilder();
+        for(String word: words){
+            insert(word);
+        }
+    }
+    
+    public boolean query(char letter) {
+        sb.append(letter);
+        return find(sb.toString());
+    }
+}
+
+/**
+ * Your StreamChecker object will be instantiated and called as such:
+ * StreamChecker obj = new StreamChecker(words);
+ * boolean param_1 = obj.query(letter);
+ */
